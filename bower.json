@@ -1,7 +1,7 @@
 {
   "name": "Underscore.eachN",
   "main": "Underscore.eachN.js",
-  "version": "0.1",
+  "version": "0.1.0",
   "authors": [
     "Body Labs <paul.melnikow@bodylabs.com>"
   ],
