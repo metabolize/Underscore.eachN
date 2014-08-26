@@ -18,8 +18,8 @@ Installation
 
 Install Underscore.eachN by running:
 
-    bower install underscore.eachN
-    npm install underscore.eachN
+    bower install Underscore.eachN
+    npm install underscore.eachn
 
 
 Documentation
