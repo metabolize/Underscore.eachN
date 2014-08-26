@@ -1,0 +1,22 @@
+{
+  "name": "Underscore.eachN",
+  "version": "0.1.0",
+  "description": "Underscore plugin for iterating over arrays, n elements at a time",
+  "main": "underscore.eachN.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bodylabs/Underscore.eachN.git"
+  },
+  "keywords": [
+    "underscore"
+  ],
+  "author": "Body Labs <paul.melnikow@bodylabs.com>",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/bodylabs/Underscore.eachN/issues"
+  },
+  "homepage": "https://github.com/bodylabs/Underscore.eachN"
+}
