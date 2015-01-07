@@ -25,49 +25,85 @@
 // WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-_.mixin({
+!function(root){
 
-    // Iterates over a list of elements by slicing the it, n at
-    // a time, yielding those n items to an iterator function.
-    // The iterator is bound to the context object, if one is
-    // passed. Each invocation of iterator is called with three
-    // arguments: (slice, firstIndex, list), where firstIndex is
-    // the index of the beginning of the slice. If elements.length
-    // it not divisible by n, the last invocation to iterator will
-    // have fewer than n elements. Returns the original list for
-    // chaining.
-    eachN: function (obj, n, iterator, context) {
+    var _n = {
 
-        // Establish the object that gets returned to break out of a loop iteration.
-        var breaker = {};
+        // Iterates over a list of elements by slicing the it, n at
+        // a time, yielding those n items to an iterator function.
+        // The iterator is bound to the context object, if one is
+        // passed. Each invocation of iterator is called with three
+        // arguments: (slice, firstIndex, list), where firstIndex is
+        // the index of the beginning of the slice. If elements.length
+        // it not divisible by n, the last invocation to iterator will
+        // have fewer than n elements. Returns the original list for
+        // chaining.
+        eachN: function (obj, n, iterator, context) {
 
-        if (typeof n !== 'number' || ! isFinite(n) || n % 1 !== 0) {
-            throw new TypeError('n should be an integer!');
+            // Establish the object that gets returned to break out of a loop iteration.
+            var breaker = {};
+
+            if (typeof n !== 'number' || ! isFinite(n) || n % 1 !== 0) {
+                throw new TypeError('n should be an integer!');
+            }
+
+            if (obj === null) return obj;
+
+            for (var i = 0, length = obj.length; i < length; i += n) {
+                var slice = obj.slice(i, i + n);
+                if (iterator.call(context, slice, i, obj) === breaker) return;
+            }
+
+            return obj;
+        },
+
+        // Produces a new array of values by slicing list, n at a time,
+        // and mapping each slice through a transformation function
+        // (iterator).
+        mapN: function (obj, n, iterator, context) {
+
+            var results = [];
+
+            if (obj === null) return results;
+
+            _.eachN(obj, n, function(slice, firstIndex, list) {
+                results.push(iterator.call(context, slice, firstIndex, list));
+            });
+
+            return results;
+        },
+
+        exports: function() {
+            var result = {};
+
+            for (var prop in this) {
+                if (!this.hasOwnProperty(prop)) continue;
+                result[prop] = this[prop];
+            }
+
+            return result;
         }
+    };
+    // Exporting pattern copied from Underscore.string
+    // Exporting
 
-        if (obj === null) return obj;
+    // CommonJS module is defined
+    if (typeof exports !== 'undefined') {
+        if (typeof module !== 'undefined' && module.exports)
+            module.exports = _n;
 
-        for (var i = 0, length = obj.length; i < length; i += n) {
-            var slice = obj.slice(i, i + n);
-            if (iterator.call(context, slice, i, obj) === breaker) return;
-        }
+        exports._n = _n;
+    }
 
-        return obj;
-    },
+    // Register as a named module with AMD.
+    if (typeof define === 'function' && define.amd)
+        define('underscore.eachn', [], function(){ return _n; });
 
-    // Produces a new array of values by slicing list, n at a time,
-    // and mapping each slice through a transformation function
-    // (iterator).
-    mapN: function (obj, n, iterator, context) {
 
-        var results = [];
-
-        if (obj === null) return results;
-
-        _.eachN(obj, n, function(slice, firstIndex, list) {
-            results.push(iterator.call(context, slice, firstIndex, list));
-        });
-
-        return results;
-    },
-});
+    // Integrate with Underscore.js if defined
+    // or create our own underscore object.
+    root._ = root._ || {};
+    root._.n = _n;
+    root._.eachN = _n.eachN;
+    root._.mapN = _n.mapN;
+}(this);
