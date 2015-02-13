@@ -25,6 +25,15 @@ Install Underscore.eachN by running:
 Documentation
 -------------
 
+In CommonJS:
+
+```js
+var _ = require('underscore');
+
+_.eachn = require('underscore.eachn');
+_.mixin(_.eachn.exports());
+```
+
 ### _.eachN(obj, n, iterator, context)
 
 Iterates over a list of elements by slicing the it, n at

@@ -1,6 +1,6 @@
 {
   "name": "underscore.eachn",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Underscore plugin for iterating over arrays, n elements at a time",
   "main": "underscore.eachN.js",
   "scripts": {
