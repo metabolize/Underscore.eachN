@@ -66,7 +66,7 @@
 
             if (obj === null) return results;
 
-            _.eachN(obj, n, function(slice, firstIndex, list) {
+            _n.eachN(obj, n, function(slice, firstIndex, list) {
                 results.push(iterator.call(context, slice, firstIndex, list));
             });
 
