@@ -1,6 +1,12 @@
 History
 =======
 
+0.2.1
+-----
+
+Fix mapN for CommonJS.
+
+
 0.2.0
 -----
 
