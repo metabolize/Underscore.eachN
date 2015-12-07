@@ -82,7 +82,21 @@
             }
 
             return result;
-        }
+        },
+
+        // chunk arrays into subarrays of chunkSize.
+        // copied from lodash.
+        chunk: function (array, chunkSize) {
+            if (chunkSize == null || chunkSize < 1) return [];
+
+            var result = [];
+            var i = 0, length = array.length;
+            while (i < length) {
+              result.push(Array.prototype.slice.call(array, i, i += chunkSize));
+            }
+            return result;
+        },
+
     };
     // Exporting pattern copied from Underscore.string
     // Exporting
@@ -106,4 +120,5 @@
     root._.n = _n;
     root._.eachN = _n.eachN;
     root._.mapN = _n.mapN;
+    root._.chunk = _n.chunk;
 }(this);
